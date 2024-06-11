@@ -49,7 +49,7 @@ public class CourierController {
      * @param id идентификатор курьера
      * @return {@link CourierDto} объект с данными курьера
      */
-    @GetMapping("/{id}")
+    @GetMapping("/{courierId}")
     public CourierDto getCourier(@PathVariable Long id) {
         return deliveryFacade.getCourierById(id);
     }
@@ -70,5 +70,15 @@ public class CourierController {
     public GetCouriersResponse getAllCouriers(@PositiveOrZero @RequestParam(defaultValue = "0") int offset,
                                               @Positive @RequestParam(defaultValue = "1") @Min(1) @Max(20) int limit) {
         return deliveryFacade.getAllCouriers(offset, limit);
+    }
+
+    /**
+     * Удаляет курьера по идентификатору
+     *
+     * @param courierId идентификатор курьера
+     */
+    @DeleteMapping("/{courierId}")
+    public void deleteCourier(@PathVariable Long courierId) {
+        deliveryFacade.deleteCourier(courierId);
     }
 }
