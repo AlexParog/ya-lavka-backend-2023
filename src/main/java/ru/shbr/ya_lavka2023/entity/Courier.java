@@ -1,24 +1,50 @@
 package ru.shbr.ya_lavka2023.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.Set;
+
+/**
+ * Сущность Курьер
+ */
 @Entity
+@Table(name = "courier")
 public class Courier {
+    /**
+     * Id курьера
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
+    /**
+     * Тип передвижения курьера
+     */
+    @Enumerated(EnumType.STRING)
+    @Column(name = "movement_type")
     private CourierTypeEnum movementType;
-    private int area;
+    /**
+     * Принадлежность району
+     */
+    @ElementCollection
+    @Column(name = "areas")
+    private Set<Integer> areas;
+    /**
+     * Грузоподъемность
+     */
+    @Column(name = "load_capacity")
     private int loadCapacity;
-    private String workingHours;
+    /**
+     * Промежутки работы
+     */
+    @ElementCollection
+    @Column(name = "working_hours")
+    private Set<String> workingHours;
 
-    public Courier(Long id, CourierTypeEnum movementType, int area, int loadCapacity, String workingHours) {
+    public Courier(Long id, CourierTypeEnum movementType, Set<Integer> areas, int loadCapacity, Set<String> workingHours) {
         this.id = id;
         this.movementType = movementType;
-        this.area = area;
+        this.areas = areas;
         this.loadCapacity = loadCapacity;
         this.workingHours = workingHours;
     }
@@ -42,12 +68,12 @@ public class Courier {
         this.movementType = movementType;
     }
 
-    public int getArea() {
-        return area;
+    public Set<Integer> getAreas() {
+        return areas;
     }
 
-    public void setArea(int area) {
-        this.area = area;
+    public void setArea(Set<Integer> areas) {
+        this.areas = areas;
     }
 
     public int getLoadCapacity() {
@@ -58,11 +84,11 @@ public class Courier {
         this.loadCapacity = loadCapacity;
     }
 
-    public String getWorkingHours() {
+    public Set<String> getWorkingHours() {
         return workingHours;
     }
 
-    public void setWorkingHours(String workingHours) {
+    public void setWorkingHours(Set<String> workingHours) {
         this.workingHours = workingHours;
     }
 
@@ -71,7 +97,7 @@ public class Courier {
         return "Courier{" +
                 "id=" + id +
                 ", movementType=" + movementType +
-                ", area=" + area +
+                ", areas=" + areas +
                 ", loadCapacity=" + loadCapacity +
                 ", workingHours='" + workingHours + '\'' +
                 '}';
