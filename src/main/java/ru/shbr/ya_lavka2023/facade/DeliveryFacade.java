@@ -1,4 +1,4 @@
-package ru.shbr.ya_lavka2023.service;
+package ru.shbr.ya_lavka2023.facade;
 
 import ru.shbr.ya_lavka2023.dto.CourierDto;
 import ru.shbr.ya_lavka2023.dto.CreateCourierRequest;
@@ -6,32 +6,24 @@ import ru.shbr.ya_lavka2023.dto.CreateCouriersResponse;
 import ru.shbr.ya_lavka2023.dto.GetCouriersResponse;
 
 /**
- * Сервис Курьеров
+ * Унифицированный интерфейс для управления интерфейсами Курьеров и Заказов (паттерн Facade)
  */
-public interface CourierService {
-
+public interface DeliveryFacade {
     /**
      * Загрузка в формате json и сохранение информации о курьерах и их графиков работы.
      *
-     * @param couriers dto списка курьеров для создания
+     * @param courierRequest dto списка курьеров для создания
      * @return {@link CreateCouriersResponse} dto, содержащее список курьеров
      */
-    CreateCouriersResponse saveCouriers(CreateCourierRequest couriers);
+    CreateCouriersResponse saveCouriers(CreateCourierRequest courierRequest);
 
     /**
      * Возвращает информацию о курьере по id.
      *
-     * @param id идентификатор курьера
+     * @param courierId id курьера
      * @return {@link CourierDto} dto курьера
      */
-    CourierDto getCourierById(Long id);
-
-    /**
-     * Удаление курьера по id.
-     *
-     * @param id идентификатор курьера
-     */
-    void deleteCourierById(Long id);
+    CourierDto getCourierById(Long courierId);
 
     /**
      * Возвращает информацию о всех курьерах с поддержкой постраничной выдачи.
@@ -45,5 +37,22 @@ public interface CourierService {
      * @param limit  количество записей для постраничной выдачи (может быть {@code null}, тогда используется значение по умолчанию {@code 1})
      * @return {@link GetCouriersResponse} объект, содержащий список курьеров и информацию о постраничной выдаче
      */
-    GetCouriersResponse findCouriers(Integer offset, Integer limit);
+    GetCouriersResponse getAllCouriers(Integer offset, Integer limit);
+
+    /**
+     * Удаление курьера по id.
+     *
+     * @param courierId id курьера
+     */
+    void deleteCourierById(Long courierId);
+
+    // GetCourierMetaInfoResponse getCourierMetaInfo(Long courierId, String startDate, String endDate);
+
+    //CreateOrderResponse saveOrders(CreateOrderRequest createOrderRequest);
+
+    //OrderDto getOrderById(Long orderId);
+
+    //List<OrderDto> getOrders(Integer offset, Integer limit);
+
+    //List<OrderDto> saveCompletedOrders(CompleteOrderRequestDto completeOrderRequestDto);
 }
