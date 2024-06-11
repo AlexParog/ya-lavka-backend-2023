@@ -44,7 +44,7 @@ public class DeliveryFacadeImpl implements DeliveryFacade {
     }
 
     @Override
-    public void deleteCourierById(Long courierId) {
+    public void deleteCourier(Long courierId) {
         courierService.deleteCourierById(courierId);
     }
 }

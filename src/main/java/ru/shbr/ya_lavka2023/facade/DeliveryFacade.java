@@ -44,7 +44,7 @@ public interface DeliveryFacade {
      *
      * @param courierId id курьера
      */
-    void deleteCourierById(Long courierId);
+    void deleteCourier(Long courierId);
 
     // GetCourierMetaInfoResponse getCourierMetaInfo(Long courierId, String startDate, String endDate);
 
