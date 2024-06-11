@@ -46,12 +46,12 @@ public class CourierController {
     /**
      * Возвращает информацию о курьере по его идентификатору.
      *
-     * @param id идентификатор курьера
+     * @param courierId идентификатор курьера
      * @return {@link CourierDto} объект с данными курьера
      */
     @GetMapping("/{courierId}")
-    public CourierDto getCourier(@PathVariable Long id) {
-        return deliveryFacade.getCourierById(id);
+    public CourierDto getCourier(@PathVariable Long courierId) {
+        return deliveryFacade.getCourierById(courierId);
     }
 
     /**
