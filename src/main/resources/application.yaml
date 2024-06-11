@@ -1,3 +1,12 @@
 spring:
-  application:
-    name=ya_lavka2023
+  jpa:
+    database: postgresql
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  datasource:
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/ya_lavka_2023
+    username: postgres
+    password: postgres
+    driverClassName: org.postgresql.Driver
