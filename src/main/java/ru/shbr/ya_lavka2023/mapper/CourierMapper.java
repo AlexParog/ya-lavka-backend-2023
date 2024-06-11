@@ -7,7 +7,7 @@ import ru.shbr.ya_lavka2023.dto.CreateCourierDto;
 import ru.shbr.ya_lavka2023.entity.Courier;
 
 /**
- * Маппер для сущностей {@link Courier} и {@link CourierDto}
+ * Маппер для сущности {@link Courier}
  */
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface CourierMapper {

@@ -1,24 +1,48 @@
 package ru.shbr.ya_lavka2023.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
+import java.util.Set;
+
+/**
+ * Сущность Заказ
+ */
 @Entity
+@Table(name = "order")
 public class Order {
+    /**
+     * Id заказа
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
     private Long id;
+    /**
+     * Вес заказа
+     */
+    @Column(name = "weight")
     private int weight;
+    /**
+     * Район
+     */
+    @Column(name = "area")
     private int area;
-    private String deliveryTime;
+    /**
+     * Промежутки времени, когда удобно доставить заказ
+     */
+    @ElementCollection
+    @Column(name = "delivery_time")
+    private Set<String> deliveryTime;
+    /**
+     * Цена заказ
+     */
+    @Column(name = "price")
     private int price;
 
     public Order() {
     }
 
-    public Order(Long id, int weight, int area, String deliveryTime, int price) {
+    public Order(Long id, int weight, int area, Set<String> deliveryTime, int price) {
         this.id = id;
         this.weight = weight;
         this.area = area;
@@ -50,11 +74,11 @@ public class Order {
         this.area = area;
     }
 
-    public String getDeliveryTime() {
+    public Set<String> getDeliveryTime() {
         return deliveryTime;
     }
 
-    public void setDeliveryTime(String deliveryTime) {
+    public void setDeliveryTime(Set<String> deliveryTime) {
         this.deliveryTime = deliveryTime;
     }
 

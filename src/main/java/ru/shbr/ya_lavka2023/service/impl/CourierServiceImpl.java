@@ -8,7 +8,6 @@ import ru.shbr.ya_lavka2023.exception.BadRequestException;
 import ru.shbr.ya_lavka2023.exception.NotFoundException;
 import ru.shbr.ya_lavka2023.mapper.CourierMapper;
 import ru.shbr.ya_lavka2023.repository.CourierRepository;
-import ru.shbr.ya_lavka2023.service.CourierPaginationRequest;
 import ru.shbr.ya_lavka2023.service.CourierService;
 
 import java.util.ArrayList;
@@ -36,7 +35,8 @@ public class CourierServiceImpl implements CourierService {
 
     @Override
     public CreateCouriersResponse saveCouriers(CreateCourierRequest couriers) {
-        List<CreateCourierDto> createCourierDtos = couriers.couriers(); // необходимо валидация на заполнение данных
+        // TODO: необходимо валидация на заполнение данных
+        List<CreateCourierDto> createCourierDtos = couriers.couriers();
         List<Courier> savedCouriers = new ArrayList<>();
 
         for (CreateCourierDto dto : createCourierDtos) {
@@ -84,13 +84,8 @@ public class CourierServiceImpl implements CourierService {
                 .build();
     }
 
-    /**
-     * Находим по id курьера или возвращаем информацию NotFound
-     *
-     * @param id идентификатор курьера
-     * @return сущность {@link Courier} или ошибку {@link NotFoundException}
-     */
-    private Courier findCourierOrNotFound(Long id) {
+    @Override
+    public Courier findCourierOrNotFound(Long id) {
         return courierRepository.findById(id).orElseThrow(
                 () -> new NotFoundException(String.format("Courier с id=%d не найден!", id)));
     }

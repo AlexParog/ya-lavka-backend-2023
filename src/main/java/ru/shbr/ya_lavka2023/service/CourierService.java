@@ -4,6 +4,8 @@ import ru.shbr.ya_lavka2023.dto.CourierDto;
 import ru.shbr.ya_lavka2023.dto.CreateCourierRequest;
 import ru.shbr.ya_lavka2023.dto.CreateCouriersResponse;
 import ru.shbr.ya_lavka2023.dto.GetCouriersResponse;
+import ru.shbr.ya_lavka2023.entity.Courier;
+import ru.shbr.ya_lavka2023.exception.NotFoundException;
 
 /**
  * Сервис Курьеров
@@ -13,7 +15,7 @@ public interface CourierService {
     /**
      * Загрузка в формате json и сохранение информации о курьерах и их графиков работы.
      *
-     * @param couriers dto списка курьеров для создания
+     * @param couriers dto для создания списка курьеров
      * @return {@link CreateCouriersResponse} dto, содержащее список курьеров
      */
     CreateCouriersResponse saveCouriers(CreateCourierRequest couriers);
@@ -41,9 +43,19 @@ public interface CourierService {
      * <p>
      * Если по заданным {@code offset} и {@code limit} не найдено ни одного курьера, возвращается пустой список.
      *
-     * @param offset смещение для постраничной выдачи (может быть {@code null}, тогда используется значение по умолчанию {@code 0})
-     * @param limit  количество записей для постраничной выдачи (может быть {@code null}, тогда используется значение по умолчанию {@code 1})
+     * @param offset смещение для постраничной выдачи (может быть {@code null}, тогда используется значение
+     *               по умолчанию {@code 0})
+     * @param limit  количество записей для постраничной выдачи (может быть {@code null}, тогда используется
+     *               значение по умолчанию {@code 1})
      * @return {@link GetCouriersResponse} объект, содержащий список курьеров и информацию о постраничной выдаче
      */
     GetCouriersResponse findCouriers(Integer offset, Integer limit);
+
+    /**
+     * Находим по id курьера или возвращаем информацию NotFound
+     *
+     * @param id идентификатор курьера
+     * @return сущность {@link Courier} или ошибку {@link NotFoundException}
+     */
+    Courier findCourierOrNotFound(Long id);
 }

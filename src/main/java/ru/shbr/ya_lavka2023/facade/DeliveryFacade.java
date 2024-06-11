@@ -1,9 +1,8 @@
 package ru.shbr.ya_lavka2023.facade;
 
-import ru.shbr.ya_lavka2023.dto.CourierDto;
-import ru.shbr.ya_lavka2023.dto.CreateCourierRequest;
-import ru.shbr.ya_lavka2023.dto.CreateCouriersResponse;
-import ru.shbr.ya_lavka2023.dto.GetCouriersResponse;
+import ru.shbr.ya_lavka2023.dto.*;
+
+import java.util.List;
 
 /**
  * Унифицированный интерфейс для управления интерфейсами Курьеров и Заказов (паттерн Facade)
@@ -48,11 +47,41 @@ public interface DeliveryFacade {
 
     // GetCourierMetaInfoResponse getCourierMetaInfo(Long courierId, String startDate, String endDate);
 
-    //CreateOrderResponse saveOrders(CreateOrderRequest createOrderRequest);
+    /**
+     * Загрузка в формате json и сохранение информации о заказах.
+     *
+     * @param createOrderRequest dto для создания списка заказов
+     * @return {@link CreateCouriersResponse} dto, содержащее список заказов
+     */
+    CreateOrderResponse saveOrders(CreateOrderRequest createOrderRequest);
 
-    //OrderDto getOrderById(Long orderId);
+    /**
+     * Возвращает информацию о заказе по id.
+     *
+     * @param orderId id заказа
+     * @return {@link OrderDto} dto заказа
+     */
+    OrderDto getOrder(Long orderId);
 
-    //List<OrderDto> getOrders(Integer offset, Integer limit);
+    /**
+     * Получает информацию о всех заказах с поддержкой постраничной выдачи.
+     * <p>
+     * Если параметры {@code offset} или {@code limit} не переданы, используются значения по умолчанию:
+     * {@code offset = 0}, {@code limit = 1}.
+     * <p>
+     * Если по заданным {@code offset} и {@code limit} не найдено ни одного заказа, возвращается пустой список.
+     *
+     * @param offset смещение для постраничной выдачи (по умолчанию 0)
+     * @param limit  количество записей для постраничной выдачи (по умолчанию 1)
+     * @return {@link GetOrdersResponse} объект, содержащий список заказов и информацию о постраничной выдаче
+     */
+    GetOrdersResponse getAllOrders(Integer offset, Integer limit);
 
-    //List<OrderDto> saveCompletedOrders(CompleteOrderRequestDto completeOrderRequestDto);
+    /**
+     * Завершает один или несколько заказов.
+     *
+     * @param completeOrderRequestDto запрос с информацией о завершении заказов
+     * @return список объектов {@link OrderDto}, содержащих данные о завершенных заказах
+     */
+    List<OrderDto> saveCompletedOrders(CompleteOrderRequestDto completeOrderRequestDto);
 }

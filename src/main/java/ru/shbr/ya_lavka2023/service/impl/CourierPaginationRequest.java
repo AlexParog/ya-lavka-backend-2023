@@ -1,4 +1,4 @@
-package ru.shbr.ya_lavka2023.service;
+package ru.shbr.ya_lavka2023.service.impl;
 
 
 import org.springframework.data.domain.Pageable;
